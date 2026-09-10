@@ -28,6 +28,10 @@ jobs:
           sudo apt-get install --yes --no-install-recommends postgresql-client
 
       - name: run psql
+        env:
+          PGHOST: 127.0.0.1 # <--- Forces TCP connection instead of Unix socket
+          PGUSER: postgres
+          PGPASSWORD: postgres
         run: |
           psql -U postgres -c 'CREATE DATABASE "TabBooks" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'German_Germany.1252';'
           psql -U postgres -c 'ALTER DATABASE "TabBooks" OWNER TO "TabBooks";'
