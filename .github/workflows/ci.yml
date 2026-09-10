@@ -35,4 +35,5 @@ jobs:
         run: |
           psql -U postgres -f test-code.sql 
           psql -U postgres -c 'SELECT * FROM public."Book";'
-        working-directory: ./
+        working-directory: ./SQL
+
