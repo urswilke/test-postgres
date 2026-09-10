@@ -24,7 +24,5 @@ jobs:
 
       - name: install psql
         run: |
-          apk add postgresql18 postgresql18-contrib
-          rc-update add postgresql
-          rc-service postgresql start
-
+          apt-get update
+          apt-get install --yes --no-install-recommends postgresql-client
