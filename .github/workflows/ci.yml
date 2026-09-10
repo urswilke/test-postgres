@@ -33,5 +33,6 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         run: |
+          psql -U postgres -c 'DROP DATABASE IF EXISTS "TabBooks";'
           psql -U postgres -c 'CREATE DATABASE "TabBooks" WITH TEMPLATE = template0 ENCODING = "UTF8" LOCALE_PROVIDER = libc LOCALE = "German_Germany.1252";'
           psql -U postgres -c 'ALTER DATABASE "TabBooks" OWNER TO "TabBooks";'
