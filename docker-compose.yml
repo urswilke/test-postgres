@@ -1,0 +1,12 @@
+# Source - https://stackoverflow.com/a/79598992
+# Posted by thisismydesign
+# Retrieved 2026-09-10, License - CC BY-SA 4.0
+
+services:
+  db:
+    image: postgres:16.6-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+

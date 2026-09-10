@@ -1,0 +1,24 @@
+# Source - https://stackoverflow.com/a/79598992
+# Posted by thisismydesign
+# Retrieved 2026-09-10, License - CC BY-SA 4.0
+
+name: CI
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull images
+        run: docker compose pull db
+
+      - name: Start PostgreSQL with Docker Compose
+        run: docker compose up db -d
+
+      - name: Wait for PostgreSQL to be ready
+        run: timeout 30s bash -c 'until docker compose exec -T db pg_isready; do sleep 1; done'
+
