@@ -1,0 +1,20 @@
+{
+  "name": "test-postgres",
+  "version": "1.0.0",
+  "description": "test",
+  "homepage": "https://github.com/urswilke/test-postgres#readme",
+  "bugs": {
+    "url": "https://github.com/urswilke/test-postgres/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urswilke/test-postgres.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "Urs Wilke",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
