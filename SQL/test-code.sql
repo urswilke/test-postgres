@@ -13,7 +13,7 @@ CREATE TABLE public."Book" (
 );
 
 
-ALTER TABLE public."Book" OWNER TO "TabBooks";
+
 
 
 CREATE TABLE public."Col" (
@@ -27,7 +27,7 @@ CREATE TABLE public."Col" (
 );
 
 
-ALTER TABLE public."Col" OWNER TO "TabBooks";
+
 
 
 CREATE TABLE public."Head" (
@@ -39,7 +39,7 @@ CREATE TABLE public."Head" (
 );
 
 
-ALTER TABLE public."Head" OWNER TO "TabBooks";
+
 
 
 CREATE TABLE public."Quest" (
@@ -59,7 +59,7 @@ CREATE TABLE public."Quest" (
 );
 
 
-ALTER TABLE public."Quest" OWNER TO "TabBooks";
+
 
 
 CREATE TABLE public."Row" (
@@ -84,7 +84,7 @@ CREATE TABLE public."Row" (
 );
 
 
-ALTER TABLE public."Row" OWNER TO "TabBooks";
+
 
 
 CREATE TABLE public."Tab" (
@@ -104,7 +104,7 @@ CREATE TABLE public."Tab" (
 );
 
 
-ALTER TABLE public."Tab" OWNER TO "TabBooks";
+
 
 
 CREATE VIEW public."Val" AS
@@ -118,5 +118,5 @@ CREATE VIEW public."Val" AS
     LATERAL unnest("Row"."RowValues") WITH ORDINALITY "Val"("Value", "ColNo");
 
 
-ALTER VIEW public."Val" OWNER TO "TabBooks";
+
 
