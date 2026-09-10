@@ -9,9 +9,4 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
-    # from here: https://wiki.alpinelinux.org/wiki/Postgresql?__goaway_challenge=cookie&__goaway_id=907525f0bcbffeeba5f613162da596c4&__goaway_referer=https%3A%2F%2Fwww.google.com%2F
-    run:
-      - apk add postgresql18 postgresql18-contrib
-      - rc-update add postgresql
-      - rc-service postgresql start
 

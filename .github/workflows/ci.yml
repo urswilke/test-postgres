@@ -22,3 +22,9 @@ jobs:
       - name: Wait for PostgreSQL to be ready
         run: timeout 30s bash -c 'until docker compose exec -T db pg_isready; do sleep 1; done'
 
+      - name: install psql
+        run: |
+          apk add postgresql18 postgresql18-contrib
+          rc-update add postgresql
+          rc-service postgresql start
+
