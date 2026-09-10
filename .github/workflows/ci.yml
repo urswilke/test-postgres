@@ -29,5 +29,5 @@ jobs:
 
       - name: run psql
         run: |
-          psql -h postgres -U postgres -c 'CREATE DATABASE "TabBooks" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'German_Germany.1252';'
-          psql -h postgres -U postgres -c 'ALTER DATABASE "TabBooks" OWNER TO "TabBooks";'
+          psql -U postgres -c 'CREATE DATABASE "TabBooks" WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'German_Germany.1252';'
+          psql -U postgres -c 'ALTER DATABASE "TabBooks" OWNER TO "TabBooks";'
