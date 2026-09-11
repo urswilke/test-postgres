@@ -39,7 +39,6 @@ jobs:
 
       - name: run psql
         env:
-          PGHOST: 127.0.0.1 # <--- Forces TCP connection instead of Unix socket
           PGUSER: postgres
           PGPASSWORD: postgres
         run: |
