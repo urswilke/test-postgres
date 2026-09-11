@@ -37,6 +37,6 @@ jobs:
         run: |
           psql -U postgres -f test-code.sql 
           psql -U postgres -c 'SELECT * FROM public."Book";'
-          Rscript 'install.packages("odbc"); conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
+          Rscript -e 'install.packages("odbc"); conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
         working-directory: ./SQL
 
