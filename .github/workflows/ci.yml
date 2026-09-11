@@ -22,10 +22,12 @@ jobs:
       - name: Wait for PostgreSQL to be ready
         run: timeout 30s bash -c 'until docker compose exec -T db pg_isready; do sleep 1; done'
 
-      - name: install psql
+      - name: install packages
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends postgresql-client
+          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi
+
 
       - name: run psql
         env:
