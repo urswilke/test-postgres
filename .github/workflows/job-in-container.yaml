@@ -48,8 +48,12 @@ jobs:
 
       - name: run R
         run: |
-          Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("pak"); pak::pak("odbc")'
           Rscript -e 'odbc::odbcListDataSources() |> print()#conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
         env:
           PGUSER: postgres
           PGPASSWORD: postgres
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::odbc
+          needs: check
