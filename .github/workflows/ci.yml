@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends postgresql-client
-          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi
+          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi r-cran-odbc
 
 
       - name: run psql
@@ -37,5 +37,6 @@ jobs:
         run: |
           psql -U postgres -f test-code.sql 
           psql -U postgres -c 'SELECT * FROM public."Book";'
+          Rscript 'conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
         working-directory: ./SQL
 
