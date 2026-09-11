@@ -42,4 +42,4 @@ jobs:
       - name: run R
         run: |
           Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("pak"); pak::pak("odbc")'
-          Rscript -e 'conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
+          Rscript -e 'odbc::odbcListDataSources() |> print()#conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
