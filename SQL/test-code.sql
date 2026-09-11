@@ -131,6 +131,15 @@ CREATE TABLE public.dscmdlog (
     index integer
 );
 
+CREATE TABLE public.dsdataset (
+    datano integer NOT NULL,
+    version text NOT NULL,
+    projectname text NOT NULL,
+    filepath text NOT NULL,
+    filedate timestamp with time zone,
+    hash text NOT NULL
+);
+
 
 
 CREATE TABLE public.dslabel (
