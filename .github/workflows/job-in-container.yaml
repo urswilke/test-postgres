@@ -33,9 +33,9 @@ jobs:
 
       - name: install packages
         run: |
-          sudo apt-get update
-          sudo apt-get install --yes --no-install-recommends postgresql-client
-          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
+          apt-get update
+          apt-get install --yes --no-install-recommends postgresql-client
+          apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
 
       - name: run psql
         env:
