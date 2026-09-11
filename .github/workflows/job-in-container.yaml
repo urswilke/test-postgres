@@ -15,7 +15,7 @@ jobs:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgres:latest
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
@@ -35,11 +35,21 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
 
+      - name: Wait for PostgreSQL
+        run: |
+          until pg_isready -h localhost -p 5432; do
+            echo 'waiting for postgres...'
+            sleep 1
+          done
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+
       - name: install packages
         run: |
           apt-get -y update
           apt-get install --yes --no-install-recommends postgresql-client
-          apt-get install --yes r-base r-base-dev r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev libpq-dev
+          apt-get install --yes r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev libpq-dev
 
       - name: run psql
         env:
@@ -56,6 +66,7 @@ jobs:
           extra-packages: |
             any::odbc
             any::RPostgreSQL
+            any::RPostgres
           needs: check
 
       - name: run R
@@ -67,9 +78,8 @@ jobs:
 
       - name: run R 2
         run: |
-          library("RPostgreSQL") 
-          drv <- DBI::dbDriver("PostgreSQL")
-          con <- RPostgreSQL::dbConnect(
+          drv <- RPostgres::Postgres()
+          con <- DBI::dbConnect(
             drv, 
             dbname = "TabBooks",
             port = 5432,
@@ -77,5 +87,6 @@ jobs:
             user = "postgres", 
             password = "postgres"
           )
-          RPostgreSQL::dbListTables(con)
+          DBI::dbListTables(con)
+          DBI::dbDisconnect(con)
         shell: Rscript {0}
