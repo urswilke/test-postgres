@@ -35,7 +35,7 @@ jobs:
         run: |
           apt-get -y update
           apt-get install --yes --no-install-recommends postgresql-client
-          apt-get install --yes r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
+          apt-get install --yes r-base r-base-dev r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
 
       - name: run psql
         env:
