@@ -44,6 +44,7 @@ jobs:
         run: |
           psql -h postgres -U postgres -f test-code.sql 
           psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
+          psql -l
         working-directory: ./SQL
 
       - name: install r package 
@@ -63,12 +64,10 @@ jobs:
 
       - name: run R 2
         run: |
-          library(DBI)
-          library(RPostgreSQL)
           drv <- DBI::dbDriver("PostgreSQL")
-          con <- dbConnect(drv, dbname = "postgres",
+          con <- RPostgreSQL::dbConnect(drv, dbname = "postgres",
                   user = "postgres", password = "postgres")
-          dbListTables(con)
+          RPostgreSQL::dbListTables(con)
         shell: Rscript {0}
         env:
           PGUSER: postgres
