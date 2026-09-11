@@ -42,8 +42,8 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         run: |
-          psql -U postgres -f test-code.sql 
-          psql -U postgres -c 'SELECT * FROM public."Book";'
+          psql -h postgres -U postgres -f test-code.sql 
+          psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
         working-directory: ./SQL
 
       - name: run R
