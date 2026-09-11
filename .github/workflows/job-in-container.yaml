@@ -19,12 +19,16 @@ jobs:
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: TabBooks
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          - 5432:5432
+
 
     steps:
       # Downloads a copy of the code in your repository before running CI tests
@@ -67,9 +71,11 @@ jobs:
           drv <- DBI::dbDriver("PostgreSQL")
           con <- RPostgreSQL::dbConnect(
             drv, 
-            dbname = "postgres",
+            dbname = "TabBooks",
+            port = 5432,
             host = "localhost",
-            user = "postgres", password = "postgres"
+            user = "postgres", 
+            password = "postgres"
           )
           RPostgreSQL::dbListTables(con)
         shell: Rscript {0}
