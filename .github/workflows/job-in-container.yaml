@@ -44,7 +44,7 @@ jobs:
         run: |
           psql -h postgres -U postgres -f test-code.sql 
           psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
-          psql -l
+          psql -h postgres -U postgres -l
         working-directory: ./SQL
 
       - name: install r package 
