@@ -33,7 +33,7 @@ jobs:
 
       - name: install packages
         run: |
-          apt-get update
+          apt-get update --yes
           apt-get install --yes --no-install-recommends postgresql-client
           apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
 
