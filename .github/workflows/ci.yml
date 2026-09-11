@@ -26,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends postgresql-client
-          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi
+          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql
 
 
       - name: run psql
@@ -41,5 +41,5 @@ jobs:
 
       - name: run R
         run: |
-          Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("odbc", repos = "http://cran.us.r-project.org")'
+          Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("pak"); pak::pak("odbc")'
           Rscript -e 'conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
