@@ -51,8 +51,5 @@ jobs:
           Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("pak"); pak::pak("odbc")'
           Rscript -e 'odbc::odbcListDataSources() |> print()#conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
         env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: postgres
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
-
+          PGUSER: postgres
+          PGPASSWORD: postgres
