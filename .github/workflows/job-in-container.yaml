@@ -46,6 +46,12 @@ jobs:
           psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
         working-directory: ./SQL
 
+      - name: install r package 
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::odbc
+          needs: check
+
       - name: run R
         run: |
           Rscript -e 'odbc::odbcListDataSources() |> print()#conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
@@ -53,7 +59,3 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::odbc
-          needs: check
