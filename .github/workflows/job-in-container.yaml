@@ -41,13 +41,22 @@ jobs:
           apt-get install --yes --no-install-recommends postgresql-client
           apt-get install --yes r-base r-base-dev r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev libpq-dev
 
-      - name: Wait for PostgreSQL
+      - name: Debug - Check if postgres is running
         run: |
-          until pg_isready -h localhost -p 5432; do
-            echo 'waiting for postgres...'
-            sleep 1
+          docker ps
+          sleep 10
+      
+      - name: Wait for PostgreSQL with timeout
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432 -U postgres; then
+              echo "PostgreSQL is ready!"
+              break
+            fi
+            echo "Attempt $i: Waiting for postgres..."
+            sleep 2
           done
-
+      
       - name: run psql
         env:
           PGUSER: postgres
