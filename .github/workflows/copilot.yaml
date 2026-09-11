@@ -31,9 +31,9 @@ jobs:
       
       - name: Install system dependencies
         run: |
-          apt-get -y update
-          apt-get install --yes --no-install-recommends postgresql-client
-          apt-get install --yes r-base r-base-dev r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev libpq-dev
+          sudo apt-get -y update
+          sudo apt-get install --yes --no-install-recommends postgresql-client
+          sudo apt-get install --yes r-base r-base-dev r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev libpq-dev
 
       - name: run psql
         env:
