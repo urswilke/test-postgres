@@ -67,7 +67,9 @@ jobs:
           library(RPostgreSQL)
           drv <- DBI::dbDriver("PostgreSQL")
           con <- dbConnect(drv, dbname = "postgres",
-                  host = "localhost", port = 5432,
                   user = "postgres", password = "postgres")
           dbListTables(con)
         shell: Rscript {0}
+        env:
+          PGUSER: postgres
+          PGPASSWORD: postgres
