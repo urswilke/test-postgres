@@ -31,16 +31,26 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v6
 
-      # Performs a clean installation of all dependencies in the `package.json` file
-      # For more information, see https://docs.npmjs.com/cli/ci.html
-      - name: Install dependencies
-        run: npm ci
+      - name: install packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends postgresql-client
+          sudo apt-get install r-base r-base-dev r-cran-tidyverse r-cran-dbi unixodbc unixodbc-dev odbc-postgresql libcurl4-openssl-dev
 
-      - name: Connect to PostgreSQL
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data.
-        run: node client.js
-        # Environment variables used by the `client.js` script to create a new PostgreSQL table.
+      - name: run psql
+        env:
+          PGHOST: 127.0.0.1 # <--- Forces TCP connection instead of Unix socket
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: |
+          psql -U postgres -f test-code.sql 
+          psql -U postgres -c 'SELECT * FROM public."Book";'
+        working-directory: ./SQL
+
+      - name: run R
+        run: |
+          Rscript -e 'dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE); .libPaths(Sys.getenv("R_LIBS_USER")); install.packages("pak"); pak::pak("odbc")'
+          Rscript -e 'odbc::odbcListDataSources() |> print()#conn <- DBI::dbConnect(odbc::odbc(), dsn = "TabBooks"); "SELECT * FROM public.\"Book\"" |> DBI::dbGetQuery(conn, statement = _)'
         env:
           # The hostname used to communicate with the PostgreSQL service container
           POSTGRES_HOST: postgres
