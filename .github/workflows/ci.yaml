@@ -62,11 +62,12 @@ jobs:
           Sys.sleep(2)
           con <- dbConnect(
             odbc::odbc(),
-            host = Sys.getenv("PGHOST"),
-            port = 5432,
-            user = Sys.getenv("PGUSER"),
-            password = Sys.getenv("PGPASSWORD"),
-            dsn = Sys.getenv("PGDATABASE")
+            Driver = "PostgreSQL",
+            Server = Sys.getenv("PGHOST"),
+            Port = 5432,
+            Database = Sys.getenv("PGDATABASE"),
+            UID = Sys.getenv("PGUSER"),
+            PWD = Sys.getenv("PGPASSWORD")
           )
           # dbListTables(con)
           result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
