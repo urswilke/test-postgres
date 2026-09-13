@@ -68,8 +68,8 @@ jobs:
             password = Sys.getenv("PGPASSWORD"),
             dbname = Sys.getenv("PGDATABASE")
           )
-          # result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
           dbListTables(con)
-          # print(result)
+          result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
+          print(result)
           dbDisconnect(con)
         shell: Rscript {0}
