@@ -66,7 +66,7 @@ jobs:
             port = 5432,
             user = Sys.getenv("PGUSER"),
             password = Sys.getenv("PGPASSWORD"),
-            dbname = Sys.getenv("PGDATABASE")
+            dsn = Sys.getenv("PGDATABASE")
           )
           # dbListTables(con)
           result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
