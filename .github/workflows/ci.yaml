@@ -47,7 +47,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          install.packages(c("DBI", "RPostgres"))
+          install.packages(c("DBI", "odbc"))
         shell: Rscript {0}
       
       - name: Test PostgreSQL connection
@@ -61,7 +61,7 @@ jobs:
           library(DBI)
           Sys.sleep(2)
           con <- dbConnect(
-            RPostgres::Postgres(),
+            odbc::odbc(),
             host = Sys.getenv("PGHOST"),
             port = 5432,
             user = Sys.getenv("PGUSER"),
