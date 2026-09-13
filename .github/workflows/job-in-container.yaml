@@ -1,5 +1,5 @@
 # from here: https://docs.github.com/en/actions/tutorials/use-containerized-services/create-postgresql-service-containers#running-jobs-in-containers
-name: PostgreSQL service example
+name: R with PostgreSQL
 on: push
 
 jobs:
@@ -43,9 +43,11 @@ jobs:
         env:
           PGUSER: postgres
           PGPASSWORD: postgres
+          PGHOST: localhost
+
         run: |
-          psql -h postgres -U postgres -f test-code.sql 
-          psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
+          psql -f test-code.sql 
+          psql -c 'SELECT * FROM public."Book";'
         working-directory: ./SQL
 
       - name: install r package 
@@ -63,18 +65,28 @@ jobs:
         env:
           PGUSER: postgres
           PGPASSWORD: postgres
+          PGHOST: localhost
+          PGDATABASE: TabBooks
 
       - name: run R 2
         run: |
           drv <- RPostgres::Postgres()
           con <- DBI::dbConnect(
             drv, 
-            dbname = "TabBooks",
             port = 5432,
-            host = "localhost",
-            user = "postgres", 
-            password = "postgres"
+            host = Sys.getenv("PGHOST"),
+            user = Sys.getenv("PGUSER"),
+            password = Sys.getenv("PGPASSWORD"),
+            dbname = Sys.getenv("PGDATABASE")          
           )
+          result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
+          print(result)
+
           DBI::dbListTables(con)
           DBI::dbDisconnect(con)
+        env:
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          PGHOST: localhost
+          PGDATABASE: TabBooks
         shell: Rscript {0}
