@@ -68,7 +68,7 @@ jobs:
             password = Sys.getenv("PGPASSWORD"),
             dbname = Sys.getenv("PGDATABASE")
           )
-          dbListTables(con)
+          # dbListTables(con)
           result <- dbGetQuery(con, 'SELECT * FROM public."Book";')
           print(result)
           dbDisconnect(con)
