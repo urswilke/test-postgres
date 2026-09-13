@@ -39,9 +39,10 @@ jobs:
         env:
           PGUSER: postgres
           PGPASSWORD: postgres
+          PGHOST: localhost
         run: |
-          psql -h postgres -U postgres -f test-code.sql 
-          psql -h postgres -U postgres -c 'SELECT * FROM public."Book";'
+          psql -f test-code.sql 
+          psql -c 'SELECT * FROM public."Book";'
         working-directory: ./SQL
 
       - name: Install R packages
