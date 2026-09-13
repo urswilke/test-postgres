@@ -41,8 +41,8 @@ jobs:
           PGPASSWORD: postgres
           PGHOST: localhost
         run: |
-          psql -f test-code.sql 
-          psql -c 'SELECT * FROM public."Book";'
+          psql -d TabBooks -f test-code.sql
+          psql -d TabBooks -c 'SELECT * FROM public."Book";'
         working-directory: ./SQL
 
       - name: Install R packages
