@@ -54,6 +54,7 @@ jobs:
         env:
           PGHOST: localhost
           PGUSER: postgres
+          POSTGRES_USER: postgres
           PGPASSWORD: postgres
           PGDATABASE: TabBooks
         run: |
